@@ -1,6 +1,7 @@
 <?php
 require_once "../conexion/conexion.php";
 require_once "../clases/Tipo_Equipo.php";
+require_once "../helpers.php";
 
 $objeto = new Tipo_Equipo();
 $objeto->setTipoId($_POST["txtCodigo"] ?? null);
@@ -9,7 +10,7 @@ $objeto->setConexion($conexion);
 
 $accion = isset($_POST['accion']) ? $_POST['accion'] : 'insertar';
 if ($accion === 'eliminar') {
-    if ($objeto->eliminarTipo_Equipo($_POST["txtCodigo"])) {
+    if ($objeto->eliminarTipo_Equipo($_POST["txtCodigo"] ?? null)) {
         echo "Tipo de equipo eliminado con éxito";
     } else {
         echo "Error al eliminar";
@@ -23,7 +24,7 @@ if ($accion === 'eliminar') {
 } else {
     if($objeto->insertarTipo_Equipo()){
         echo "<br>Tipo de Equipo Guardado:";
-        echo "<br>Nombre: ". $_POST["txtNombre"];
+        echo "<br>Nombre: ". escapar($_POST["txtNombre"] ?? '');
     }else{
         echo "Error, verifique datos e intente nuevamente";
     }

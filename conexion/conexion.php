@@ -6,7 +6,7 @@
     $password="";//no tiene contraseña ya que no lo hemos configurado
     try {
         $conexion = new PDO("mysql:host={$host};dbname={$base_datos};charset=utf8",$usuario,$password);
-        //$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $th) {
         die("Error en conexión". $th->getMessage());
     }

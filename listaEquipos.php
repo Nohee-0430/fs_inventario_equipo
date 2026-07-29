@@ -1,6 +1,7 @@
 <?php
     include_once "conexion/conexion.php";
     include_once "clases/Equipos.php";
+    include_once "helpers.php";
     $listaEquipos = Equipos::obtenerEquipos($conexion);
 ?>
 <!DOCTYPE html>
@@ -9,13 +10,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Equipos</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <h1>Equipos</h1>
     </header>
-    <main>
+    <nav class="site-nav container" aria-label="Navegación principal">
+        <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="menu-principal">Menú de navegación</button>
+        <div class="site-nav__links" id="menu-principal">
+            <a href="index.php">Inicio</a><a href="listaMarcas.php">Marcas</a><a href="listaTipo_Equipo.php">Tipos</a><a href="listaRoles.php">Roles</a><a href="listaPuestos.php">Puestos</a><a href="listaEmpleados.php">Empleados</a><a href="listaUsuarios.php">Usuarios</a><a href="listaEquipos.php">Equipos</a>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="page-actions"><a class="button-link" href="frmAgregarEquipos.php">Agregar equipo</a></div>
         <table>
             <thead>
                 <tr>
@@ -23,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($listaEquipos as $datos){ ?>
+                <?php foreach ($listaEquipos as $datos){ $datos = array_map('escapar', $datos); ?>
                 <tr>
                     <td> <?php echo($datos['equipo_id']);?> </td>
                     <td> <?php echo($datos['no_serie']);?> </td>
@@ -56,5 +65,7 @@
             </tbody>
         </table>
     </main>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

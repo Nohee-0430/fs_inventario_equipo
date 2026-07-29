@@ -1,6 +1,7 @@
 <?php
 require_once "../conexion/conexion.php";
 require_once "../clases/Marcas.php";
+require_once "../helpers.php";
 
 $objeto = new Marcas();
 $objeto->setMarcaId($_POST["txtCodigo"] ?? null);
@@ -9,7 +10,7 @@ $objeto->setConexion($conexion);
 
 $accion = isset($_POST['accion']) ? $_POST['accion'] : 'insertar';
 if ($accion === 'eliminar') {
-    if ($objeto->eliminarMarca($_POST["txtCodigo"])) {
+    if ($objeto->eliminarMarca($_POST["txtCodigo"] ?? null)) {
         echo "Marca eliminada con éxito";
     } else {
         echo "Error al eliminar";
@@ -23,7 +24,7 @@ if ($accion === 'eliminar') {
 } else {
     if($objeto->insertarMarca()){
         echo "<br>Marca Guardada:";
-        echo "<br>Marca: ". $_POST["txtMarca"];
+        echo "<br>Marca: ". escapar($_POST["txtMarca"] ?? '');
     }else{
         echo "Error, verifique datos e intente nuevamente";
     }
